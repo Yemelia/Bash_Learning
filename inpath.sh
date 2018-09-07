@@ -21,7 +21,7 @@ checkForCmdInPath()
 {
     var=$1
     if [ "$var" != "" ]; then
-        if [ "${var:0:1}" = "/" ]; then
+        if [ "${var%${var#?}}" = "/" ]; then
             if [ ! -x $var ]; then
                 return 1
             fi
