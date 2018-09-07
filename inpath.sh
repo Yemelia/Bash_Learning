@@ -5,12 +5,11 @@ in_path()
     cmd=$1
     oldIFS=$IFS
     ourpath=$2
-    IFS=":"
+    IFS=':'
     result=1
-    for directory in "$ourpath"
-    do
-        if [ -x $directory/$cmd ] ; then
-            result=0
+    for directory in $ourpath; do
+        if [ -x "$directory/$cmd" ] ; then
+        result=0
         fi
     done
 
@@ -21,7 +20,7 @@ in_path()
 checkForCmdInPath()
 {
     var=$1
-    if ["$var" != ""]; then
+    if [ "$var" != "" ]; then
         if [ "${var:0:1}" = "/" ]; then
             if [ ! -x $var ]; then
                 return 1
