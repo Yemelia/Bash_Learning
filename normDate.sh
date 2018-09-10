@@ -16,23 +16,27 @@ monthNumToName()
 }
 
 
-# Uncomment for testing
-# if [ $# -ne 3 ] ; then
-#     echo "Usage: $0 month day year" >&2
-#     echo "Formats are August 3 1962 and 8 3 1962" >&2
-#     exit 1
-# fi
-# if [ $3 -le 999 ] ; then
-#     echo "$0: expected 4-digit year value." >&2
-#     exit 1
-# fi
+# Comment for including
+if [ $# -eq 1 ] ; then # Чтобы компенсировать форматы с / и -
+    set -- $(echo $1 | sed 's/[\/\-]/ /g')
+fi
 
-# if [ -z $(echo $1|sed 's/[[:digit:]]//g') ]; then
-#     monthNumToName $1
-# else
-#     month="$(echo $1|cut -c1|tr '[:lower:]' '[:upper:]')"
-#     month="$month$(echo $1|cut -c2-3 | tr '[:upper:]' '[:lower:]')"
-# fi
+if [ $# -ne 3 ] ; then
+    echo "Usage: $0 month day year" >&2
+    echo "Formats are August 3 1962 and 8 3 1962" >&2
+    exit 1
+fi
+if [ $3 -le 999 ] ; then
+    echo "$0: expected 4-digit year value." >&2
+    exit 1
+fi
 
-# echo $month $2 $3
-# exit 0
+if [ -z $(echo $1|sed 's/[[:digit:]]//g') ]; then
+    monthNumToName $1
+else
+    month="$(echo $1|cut -c1|tr '[:lower:]' '[:upper:]')"
+    month="$month$(echo $1|cut -c2-3 | tr '[:upper:]' '[:lower:]')"
+fi
+
+echo $month $2 $3
+exit 0
