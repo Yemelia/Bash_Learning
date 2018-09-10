@@ -17,7 +17,7 @@ monthNumToName()
 
 
 # Comment for including
-if [ $# -eq 1 ] ; then # Чтобы компенсировать форматы с / и -
+if [ $# -eq 1 ] ; then
     set -- $(echo $1 | sed 's/[\/\-]/ /g')
 fi
 
